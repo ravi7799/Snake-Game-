@@ -17,7 +17,9 @@ Player will enjoy playing this game...
 5. Sound and visuals are of very good quality.
 6. Player can Pause the game at anytime.
 7. More than Five snakes to choose from.
-8. And most importantly you will enoy this game.. :-D
+8. HELP option also added for user.
+9. player can pause game anytime and unpause it anytime he wants.
+10. And most importantly you will enoy this game.. :-D
 
 
 Direction to use and Play:
