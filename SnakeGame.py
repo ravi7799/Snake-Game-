@@ -2,6 +2,7 @@ import pygame
 import random
 import sys
 import os
+import time
 
 x=pygame.init()
 
@@ -58,14 +59,50 @@ def heading(text,color,x,y):
 
 
 # To increase size of snake....
-def plot_snake(gameWindow ,count ,snake_list,snakeSize):
+def plot_snake(gameWindow ,count ,snake_list,snakeSize,snaketype):
     count=0
-    for x,y in snake_list:
-        if count%2==0:
-            pygame.draw.rect(gameWindow,green,[x,y,snakeSize,snakeSize])
-        else:
-            pygame.draw.rect(gameWindow,(77, 195, 255),[x,y,snakeSize,snakeSize])
-        count+=1
+    
+    if snaketype==1:
+        for x,y in snake_list:
+            if count%2==0:
+                pygame.draw.rect(gameWindow,green,[x,y,snakeSize,snakeSize])
+            else:
+                pygame.draw.rect(gameWindow,(22, 171, 77),[x,y,snakeSize,snakeSize])
+            count+=1
+            
+    if snaketype==2:
+        for x,y in snake_list:
+            if count%2==0:
+                pygame.draw.rect(gameWindow,white,[x,y,snakeSize,snakeSize])
+            else:
+                pygame.draw.rect(gameWindow,(206, 235, 217),[x,y,snakeSize,snakeSize])
+            count+=1
+            
+    if snaketype==5:
+        for x,y in snake_list:
+            if count%2==0:
+                pygame.draw.rect(gameWindow,green,[x,y,snakeSize,snakeSize])
+            else:
+                pygame.draw.rect(gameWindow,(22, 171, 77),[x,y,snakeSize,snakeSize])
+            count+=1
+            
+    if snaketype==4:
+        for x,y in snake_list:
+            if count%2==0:
+                pygame.draw.rect(gameWindow,green,[x,y,snakeSize,snakeSize])
+            else:
+                pygame.draw.rect(gameWindow,(22, 171, 77),[x,y,snakeSize,snakeSize])
+            count+=1
+            
+    if snaketype==3:
+        for x,y in snake_list:
+            if count%2==0:
+                pygame.draw.rect(gameWindow,(105, 35, 148),[x,y,snakeSize,snakeSize])
+            else:
+                pygame.draw.rect(gameWindow,(189, 132, 224),[x,y,snakeSize,snakeSize])
+            if count%2==1:
+                pygame.draw.rect(gameWindow,(22, 171, 77),[x+snakeSize/2,y,snakeSize/2,snakeSize/2])
+            count+=1
 
 #Welcome screen...
 
@@ -82,13 +119,77 @@ def welcomescreen():
         gameWindow.blit(welcomebg,(0,0))
         gameWindow.blit(snakeimg,(250,70))
         heading(" WELCOME TO SNAKE SMACKDOWN ",grey,20,200)
-        text_screen("press SPACEBAR to play...", lightyellow, 20, 370)
-        text_screen("press Q to quit...", pink, 20, 340)
+        text_screen("1. press SPACEBAR to play", lightyellow, 170, 250)
+        text_screen("3. press Q to quit", pink, 170, 310)
+        text_screen("2. press S to to select snake", green, 170, 280)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_SPACE:
-                    gameloop()
+                    time.sleep(2)
+                    
+                    gameloop(1)
+                if event.key==pygame.QUIT:
+                    exitgame=True
+                if event.key==pygame.K_q:
+                    pygame.quit()
+                    sys.exit(0)
+                if event.key==pygame.K_s:
+                    snaketypescreen()
+        
+        clock=pygame.time.Clock()
+        clock.tick(30)
+    pygame.quit()
+
+
+# function for Selecting Type Of Snake....
+def snaketypescreen():
+    welcomebg=pygame.image.load("images\homeBG1.jpg")
+    welcomebg=pygame.transform.scale(welcomebg,(600,400)).convert_alpha()
+    snake1=pygame.image.load("icon\snake.png")
+    snake1=pygame.transform.scale(snake1,(60,60)).convert_alpha()
+    snake2=pygame.image.load("icon\snake1.jfif")
+    snake2=pygame.transform.scale(snake2,(60,60)).convert_alpha()
+    snake3=pygame.image.load("icon\snake2.png")
+    snake3=pygame.transform.scale(snake3,(60,60)).convert_alpha()
+    snake4=pygame.image.load("icon\snake3.png")
+    snake4=pygame.transform.scale(snake4,(60,60)).convert_alpha()
+    snake5=pygame.image.load("icon\snake4.png")
+    snake5=pygame.transform.scale(snake5,(60,60)).convert_alpha()
+    exitgame=False
+    pygame.mixer.music.load("music\HomeScreen.mp3")
+    pygame.mixer.music.play(-1)
+    while not exitgame:
+        gameWindow.fill(welcomegreen)
+        
+        gameWindow.blit(welcomebg,(0,0))       
+        heading(" WELCOME TO SNAKE SMACKDOWN ",(230, 250, 230),20,20)
+        heading("1. Press 1",(34, 153, 8), 210, 70)
+        gameWindow.blit(snake1,(380,55))
+        heading("2. Press 2", (235,245,250), 210, 130)
+        gameWindow.blit(snake2,(380,115))
+        heading("3. Press 3", (106, 35, 173), 210, 180)
+        gameWindow.blit(snake3,(380,159))
+        heading("4. Press 4", (19, 207, 172), 210, 240)
+        gameWindow.blit(snake4,(380,225))
+        heading("5. Press 5", (204, 214, 19), 210, 300)   
+        gameWindow.blit(snake5,(380,280))
+        
+        text_screen("Press Q to quit...", pink, 0,380)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type==pygame.KEYDOWN:
+                if event.key==pygame.K_1:
+                    gameloop(1)
+                if event.key==pygame.K_2:
+                    gameloop(2)
+                if event.key==pygame.K_3:
+                    gameloop(3)
+                if event.key==pygame.K_4:
+                    gameloop(4)
+                if event.key==pygame.K_5:
+                    gameloop(5)
+                    
                 if event.key==pygame.QUIT:
                     exitgame=True
                 if event.key==pygame.K_q:
@@ -98,14 +199,12 @@ def welcomescreen():
         clock=pygame.time.Clock()
         clock.tick(30)
     pygame.quit()
-
-            
-        
         
         
 
 #game loop
-def gameloop():
+     # TO GIVE USER THE OPTION TO SELECT TYPE OF SNAKE
+def gameloop(snaketype):
     #creating game Specific
     gameExit=False
     gameOver=False
@@ -149,7 +248,7 @@ def gameloop():
     
     # To increase the length of snake
     snake_list=[]
-    snake_len=1
+    snake_len=1              
     head=[]
             
     # Making background for main game screen..
@@ -179,7 +278,6 @@ def gameloop():
     
     eatsound = pygame.mixer.Sound("sound\\beep.wav")
     
-    
     # main game loop
     while not gameExit:
         if gameOver:
@@ -196,7 +294,7 @@ def gameloop():
                 
                 if event.type==pygame.KEYDOWN:
                     if event.key==pygame.K_SPACE:
-                        gameloop()
+                        gameloop(1)
                     
                     if event.key==pygame.K_RETURN:
                         welcomescreen()
@@ -228,6 +326,13 @@ def gameloop():
                     # Cheat to increase your score :-P
                     if event.key==pygame.K_a:
                         score+=10
+                    
+                    if event.key==pygame.K_q:
+                        pygame.quit()
+                        sys.exit(0)
+                   
+                    if event.key==pygame.K_h:
+                        welcomescreen()
                 
             snakeX=snakeX + velocityX
             snakeY=snakeY + velocityY
@@ -236,6 +341,9 @@ def gameloop():
             # Setting the main game window color 
             gameWindow.fill(maincolor)
             gameWindow.blit(mainbg,(0,0))
+            
+            text_screen("Press Q to QUIT...", (16, 146, 163), 0,380)
+            text_screen("Press H to HOME_SCREEN", (219, 187, 149), 340,380)
             
             if count%5 != 0 or count==0:
                 pygame.draw.rect(gameWindow,red,[foodX,foodY,food_sizeX,food_sizeY])
@@ -248,7 +356,7 @@ def gameloop():
                     count+=1
                     
             else:
-                pygame.draw.rect(gameWindow,lightpurple ,[sfoodX,sfoodY,sfoodsizeX,sfoodsizeY])
+                pygame.draw.rect(gameWindow,(207, 190, 10),[sfoodX,sfoodY,sfoodsizeX,sfoodsizeY])
                 if(abs(snakeX-sfoodX)<20 and abs(snakeY-sfoodY)<20):
                     score+=30
                     eatsound.play()
@@ -288,7 +396,7 @@ def gameloop():
                 
                     
             
-            plot_snake(gameWindow,count, snake_list, snakeSize)
+            plot_snake(gameWindow,count, snake_list, snakeSize, snaketype)
         
             # Making a MAZE
             for i in range(30,561,20):
