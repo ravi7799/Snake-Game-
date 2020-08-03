@@ -83,18 +83,23 @@ def plot_snake(gameWindow ,count ,snake_list,snakeSize,snaketype):
     if snaketype==5:
         for x,y in snake_list:
             if count%2==0:
-                pygame.draw.rect(gameWindow,green,[x,y,snakeSize,snakeSize])
+                pygame.draw.rect(gameWindow,(168, 110, 39),[x,y,snakeSize,snakeSize])
             else:
-                pygame.draw.rect(gameWindow,(22, 171, 77),[x,y,snakeSize,snakeSize])
+                pygame.draw.rect(gameWindow,(168, 110, 39),[x,y,snakeSize,snakeSize])
+            if count%2==1:
+                pygame.draw.rect(gameWindow,(92, 52, 4),[x,y,snakeSize/2,snakeSize/2])
             count+=1
             
     if snaketype==4:
         for x,y in snake_list:
             if count%2==0:
-                pygame.draw.rect(gameWindow,green,[x,y,snakeSize,snakeSize])
+                pygame.draw.rect(gameWindow,(61, 186, 153),[x,y,snakeSize,snakeSize])
             else:
-                pygame.draw.rect(gameWindow,(22, 171, 77),[x,y,snakeSize,snakeSize])
+                pygame.draw.rect(gameWindow,(61, 186, 153),[x,y,snakeSize,snakeSize])
+            if count%2==1:
+                pygame.draw.rect(gameWindow,(22, 171, 77),[x,y,snakeSize/2,snakeSize/2])
             count+=1
+
             
     if snaketype==3:
         for x,y in snake_list:
@@ -121,9 +126,11 @@ def welcomescreen():
         gameWindow.blit(welcomebg,(0,0))
         gameWindow.blit(snakeimg,(250,70))
         heading(" WELCOME TO SNAKE SMACKDOWN ",grey,20,200)
-        text_screen("1. press SPACEBAR to play", lightyellow, 170, 250)
-        text_screen("3. press Q to quit", pink, 170, 310)
-        text_screen("2. press S to to select snake", green, 170, 280)
+        text_screen("1. press SPACEBAR to PLAY", lightyellow, 170, 250)
+        text_screen("3. press Q to QUIT", pink, 170, 310)
+        text_screen("2. press S to to SELECT snake", green, 170, 280)
+        text_screen("4. press H for HELP", (13, 189, 168), 170, 340)
+        main_screen("@RAVEET_K", (199, 10, 111), 500, 380)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type==pygame.KEYDOWN:
@@ -136,6 +143,8 @@ def welcomescreen():
                     sys.exit(0)
                 if event.key==pygame.K_s:
                     snaketypescreen()
+                if event.key==pygame.K_h:
+                    helpscreen()
         
         clock=pygame.time.Clock()
         clock.tick(30)
@@ -160,8 +169,7 @@ def snaketypescreen():
     pygame.mixer.music.load("music\HomeScreen.mp3")
     pygame.mixer.music.play(-1)
     while not exitgame:
-        gameWindow.fill(welcomegreen)
-        
+        gameWindow.fill(welcomegreen) 
         gameWindow.blit(welcomebg,(0,0))       
         heading(" WELCOME TO SNAKE SMACKDOWN ",(230, 250, 230),20,20)
         heading("1. Press 1",(34, 153, 8), 210, 70)
@@ -205,6 +213,44 @@ def snaketypescreen():
         clock.tick(30)
     pygame.quit()
         
+
+# HELP Screen
+    
+def helpscreen():
+    exitgame=False
+    pygame.mixer.music.load("music\help.mp3")
+    pygame.mixer.music.play(-1)
+    while not exitgame:
+        gameWindow.fill((95, 199, 173))
+        heading(" WELCOME TO SNAKE SMACKDOWN ",(12, 34, 133),20,20)
+        text_screen("1. Snake will automatically move,just change direction:",(153, 12, 90), 0, 70)    
+        main_screen("* -> key to move right", (207, 105, 37), 20, 90)
+        main_screen("* <- key to move left", (106, 35, 173), 20, 113)
+        main_screen("* ^ key to move up", (29, 88, 196), 20, 136)
+        main_screen("* v key to move down", (40, 105, 2), 20, 160)
+        text_screen("2. score will be addded according to :",(153, 12, 90), 0, 200)
+        main_screen("* 10 points for eating cheese", (29, 88, 196), 20, 230)
+        main_screen("* 30 points for eating meat", (40, 105, 2), 20, 253)
+        text_screen("3. Credit :",(153, 12, 90), 0, 276)
+        main_screen("* RAVEET KUMAR ", (207, 105, 37), 20, 306)
+        main_screen("* kumarraveet52@gmail.com", (106, 35, 173), 20, 330)
+        text_screen("Press Q to QUIT...", (148, 25, 3), 0,380)
+        text_screen("Press H to HOME_SCREEN...", (148, 25, 3), 0,360)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type==pygame.KEYDOWN:
+                if event.key==pygame.K_q:
+                    pygame.quit()
+                    sys.exit(0)
+                if event.key==pygame.QUIT:
+                    pygame.quit()
+                    sys.exit(0)
+                if event.key==pygame.K_h:
+                    welcomescreen()
+        clock=pygame.time.Clock()
+        clock.tick(30)
+    pygame.quit()
+
 
 
 def main_screen(text,color,x,y):
@@ -256,8 +302,6 @@ def gameloop(snaketype):
     snakeSize=10
     
     # Food Specification
-    food_sizeX=10
-    food_sizeY=10
     foodX=random.randrange(mazel+5,mazer-5,5)
     foodY=random.randrange(mazetop+5,mazebottom-5,5)
     clock=pygame.time.Clock()
@@ -265,12 +309,15 @@ def gameloop(snaketype):
     
     
     #Special food Specification
-    sfoodsizeX=20
-    sfoodsizeY=20
     sfoodX=random.randrange(mazel+5,mazer-5,5)
     sfoodY=random.randrange(mazetop+5,mazebottom-5,5)
     count=0
     
+    smallfood=pygame.image.load("images\cheese.png")
+    smallfood=pygame.transform.scale(smallfood,(15,15)).convert_alpha()
+    bigfood=pygame.image.load("images\meat.png")
+    bigfood=pygame.transform.scale(bigfood,(25,25)).convert_alpha()
+
     
     #Score of the player
     score=0
@@ -380,8 +427,8 @@ def gameloop(snaketype):
             main_screen("Press H to HOME_SCREEN", (219, 187, 149), 400,380)
             
             if count%5 != 0 or count==0:
-                pygame.draw.rect(gameWindow,red,[foodX,foodY,food_sizeX,food_sizeY])
-                if(abs(snakeX-foodX)<10 and abs(snakeY-foodY)<10):
+                gameWindow.blit(smallfood,(foodX,foodY))
+                if(abs(snakeX-foodX)<15 and abs(snakeY-foodY)<15):
                     score+=10
                     eatsound.play()
                     foodX=random.randrange(mazel+5,mazer-5,5)
@@ -390,7 +437,7 @@ def gameloop(snaketype):
                     count+=1
                     
             else:
-                pygame.draw.rect(gameWindow,(207, 190, 10),[sfoodX,sfoodY,sfoodsizeX,sfoodsizeY])
+                gameWindow.blit(bigfood,(sfoodX,sfoodY))
                 if(abs(snakeX-sfoodX)<20 and abs(snakeY-sfoodY)<20):
                     score+=30
                     eatsound.play()
@@ -398,7 +445,7 @@ def gameloop(snaketype):
                     sfoodY=random.randrange(mazetop+5,mazebottom-5,5)
                     snake_len+=1
                     count+=1
-                
+            
                 
             # Updating high score on screen
             if(highscore < score):
