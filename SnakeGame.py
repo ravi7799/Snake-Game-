@@ -7,6 +7,9 @@ x=pygame.init()
 
 # For adding audio file..
 pygame.mixer.init()
+pygame.mixer.pre_init(44100,-16,2,512)
+
+
 
 #creating colors
 white=(0,0,0)
@@ -67,7 +70,7 @@ def welcomescreen():
     snakeimg=pygame.transform.scale(snakeimg,(100,100)).convert_alpha()
     exitgame=False
     pygame.mixer.music.load("HomeScreen.mp3")
-    pygame.mixer.music.play()
+    pygame.mixer.music.play(-1)
     while not exitgame:
         gameWindow.fill(welcomegreen)
         gameWindow.blit(welcomebg,(0,0))
@@ -163,7 +166,11 @@ def gameloop():
     file.close()
     highscore=int(highs[-6:])
     pygame.mixer.music.load("backmain.mp3")
-    pygame.mixer.music.play()     
+    pygame.mixer.music.play(-1)     
+    
+    eatsound = pygame.mixer.Sound("eat.mp3")
+    
+    # main game loop
     while not gameExit:
         if gameOver:
             gameWindow.fill((64, 82, 163))
@@ -224,6 +231,7 @@ def gameloop():
                 pygame.draw.rect(gameWindow,red,[foodX,foodY,food_sizeX,food_sizeY])
                 if(abs(snakeX-foodX)<10 and abs(snakeY-foodY)<10):
                     score+=10
+                    eatsound.play()
                     foodX=random.randrange(mazel+5,mazer-5,5)
                     foodY=random.randrange(mazetop+5,mazebottom-5,5)
                     snake_len+=1
