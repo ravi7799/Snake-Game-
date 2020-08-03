@@ -9,11 +9,15 @@ Modules used-
   
   
 Player will enjoy playing this game...
+
 1. Player will get a very good GUI.
 2. They can know previous highest score.
 3. They can exit the game anytime they want anytime they want.
 4. Player will get Good Interaction with the CPU.
 5. Sound and visuals are of very good quality.
+6. Player can Pause the game at anytime.
+7. And most importantly you will enoy this game.. :-D
+
 
 Direction to use and Play:
 
@@ -26,6 +30,6 @@ Direction to use and Play:
   
  linkedin - linkedin.com/in/raveet-kumar-40510818b
  
- email - kumarraveet52@gmail.com
+ Email - kumarraveet52@gmail.com
  
  instagram : https://www.instagram.com/kumarraveet/
