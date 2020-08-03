@@ -35,6 +35,8 @@ maincolor=(0, 26, 18)
 # width=600 & height=400
 gameWindow=pygame.display.set_mode((600,400))
 pygame.display.set_caption("SNAKES VIPER")
+game_icon=pygame.image.load('icon\icon.png')
+pygame.display.set_icon(game_icon)
 pygame.display.update()
 
 
@@ -56,20 +58,24 @@ def heading(text,color,x,y):
 
 
 # To increase size of snake....
-def plot_snake(gameWindow , color,snake_list,snakeSize):
+def plot_snake(gameWindow ,count ,snake_list,snakeSize):
+    count=0
     for x,y in snake_list:
-        pygame.draw.rect(gameWindow,color,[x,y,snakeSize,snakeSize])
-
+        if count%2==0:
+            pygame.draw.rect(gameWindow,green,[x,y,snakeSize,snakeSize])
+        else:
+            pygame.draw.rect(gameWindow,(77, 195, 255),[x,y,snakeSize,snakeSize])
+        count+=1
 
 #Welcome screen...
 
 def welcomescreen():
-    welcomebg=pygame.image.load("homeBG1.jpg")
+    welcomebg=pygame.image.load("images\homeBG1.jpg")
     welcomebg=pygame.transform.scale(welcomebg,(600,400)).convert_alpha()
-    snakeimg=pygame.image.load("snake2.jfif")
+    snakeimg=pygame.image.load("images\snake2.jfif")
     snakeimg=pygame.transform.scale(snakeimg,(100,100)).convert_alpha()
     exitgame=False
-    pygame.mixer.music.load("HomeScreen.mp3")
+    pygame.mixer.music.load("music\HomeScreen.mp3")
     pygame.mixer.music.play(-1)
     while not exitgame:
         gameWindow.fill(welcomegreen)
@@ -147,12 +153,12 @@ def gameloop():
     head=[]
             
     # Making background for main game screen..
-    mainbg=pygame.image.load("gamebg.JPG")
+    mainbg=pygame.image.load("images\gamebg.JPG")
     mainbg=pygame.transform.scale(mainbg,(600,400)).convert_alpha()
     
     
     # Making background for game over screen..
-    gameoverbg=pygame.image.load("homebg.jpg")
+    gameoverbg=pygame.image.load("images\homebg.jpg")
     gameoverbg=pygame.transform.scale(gameoverbg,(600,400)).convert_alpha()
     
     # File operation for storing highest score
@@ -165,11 +171,14 @@ def gameloop():
     highs=file.read()
     file.close()
     highscore=int(highs[-6:])
-    pygame.mixer.music.load("backmain.mp3")
+    
+    
+    
+    pygame.mixer.music.load("music\\backmain.mp3")
     pygame.mixer.music.play(-1)     
     
-    eatsound = pygame.mixer.Sound("beep.wav")
-    big_food = pygame.mixer.Sound("bigfood.wav")
+    eatsound = pygame.mixer.Sound("sound\\beep.wav")
+    
     
     # main game loop
     while not gameExit:
@@ -240,7 +249,6 @@ def gameloop():
                     
             else:
                 pygame.draw.rect(gameWindow,lightpurple ,[sfoodX,sfoodY,sfoodsizeX,sfoodsizeY])
-                big_food.play()
                 if(abs(snakeX-sfoodX)<20 and abs(snakeY-sfoodY)<20):
                     score+=30
                     eatsound.play()
@@ -255,7 +263,7 @@ def gameloop():
                 highscore=score
 
             
-            text_screen("SCORE:"+str(score)+"       HIGHSCORE:"+str(highscore),green,160,0)
+            text_screen("SCORE:"+str(score)+"       HIGHSCORE:"+str(highscore),(255, 204, 255),160,0)
             
             
             # This is for the initial condition when snake size was 1
@@ -270,7 +278,7 @@ def gameloop():
             
             if(head in snake_list[:-1]) or (snakeX<=mazel or snakeY<mazetop or snakeX>mazer or snakeY>mazebottom):
                 gameOver=True
-                pygame.mixer.music.load("gameover.mp3")
+                pygame.mixer.music.load("music\gameover.mp3")
                 pygame.mixer.music.play()
                 if(highscore <= score):
                     file=open("highscore.txt",'w')
@@ -279,7 +287,9 @@ def gameloop():
                     file.close()
                 
                     
-            plot_snake(gameWindow,lightgreen , snake_list, snakeSize)
+            
+            plot_snake(gameWindow,count, snake_list, snakeSize)
+        
             # Making a MAZE
             for i in range(30,561,20):
                 pygame.draw.rect(gameWindow,darkgreen,[i,30,mazeblocksize, mazeblocksize ])
