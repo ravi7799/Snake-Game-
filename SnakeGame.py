@@ -168,7 +168,8 @@ def gameloop():
     pygame.mixer.music.load("backmain.mp3")
     pygame.mixer.music.play(-1)     
     
-    eatsound = pygame.mixer.Sound("eat.mp3")
+    eatsound = pygame.mixer.Sound("beep.wav")
+    big_food = pygame.mixer.Sound("bigfood.wav")
     
     # main game loop
     while not gameExit:
@@ -239,8 +240,10 @@ def gameloop():
                     
             else:
                 pygame.draw.rect(gameWindow,lightpurple ,[sfoodX,sfoodY,sfoodsizeX,sfoodsizeY])
+                big_food.play()
                 if(abs(snakeX-sfoodX)<20 and abs(snakeY-sfoodY)<20):
                     score+=30
+                    eatsound.play()
                     sfoodX=random.randrange(mazel+5,mazer-5,5)
                     sfoodY=random.randrange(mazetop+5,mazebottom-5,5)
                     snake_len+=1
