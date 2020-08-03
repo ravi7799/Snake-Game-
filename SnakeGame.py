@@ -2,7 +2,7 @@ import pygame
 import random
 import sys
 import os
-import time
+
 
 x=pygame.init()
 
@@ -72,10 +72,12 @@ def plot_snake(gameWindow ,count ,snake_list,snakeSize,snaketype):
             
     if snaketype==2:
         for x,y in snake_list:
-            if count%2==0:
-                pygame.draw.rect(gameWindow,white,[x,y,snakeSize,snakeSize])
+            if count%2==0 or count<=3:
+                pygame.draw.rect(gameWindow,(255,250,250),[x,y,snakeSize,snakeSize])
             else:
-                pygame.draw.rect(gameWindow,(206, 235, 217),[x,y,snakeSize,snakeSize])
+                pygame.draw.rect(gameWindow,(162, 224, 178),[x,y,snakeSize,snakeSize]) 
+            if count%2==1 and count>=3:
+                pygame.draw.rect(gameWindow,(0, 0, 0),[x+snakeSize/2,y,snakeSize/2,snakeSize/2]) 
             count+=1
             
     if snaketype==5:
@@ -126,8 +128,6 @@ def welcomescreen():
         for event in pygame.event.get():
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_SPACE:
-                    time.sleep(2)
-                    
                     gameloop(1)
                 if event.key==pygame.QUIT:
                     exitgame=True
@@ -181,17 +181,22 @@ def snaketypescreen():
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_1:
                     gameloop(1)
+                
                 if event.key==pygame.K_2:
                     gameloop(2)
+                
                 if event.key==pygame.K_3:
                     gameloop(3)
+                
                 if event.key==pygame.K_4:
                     gameloop(4)
+                
                 if event.key==pygame.K_5:
                     gameloop(5)
                     
                 if event.key==pygame.QUIT:
                     exitgame=True
+                
                 if event.key==pygame.K_q:
                     pygame.quit()
                     sys.exit(0)
@@ -200,7 +205,33 @@ def snaketypescreen():
         clock.tick(30)
     pygame.quit()
         
-        
+
+
+def main_screen(text,color,x,y):
+    font=pygame.font.SysFont(text,23)
+    screen_text=font.render(text,True,color)
+    gameWindow.blit(screen_text,[x,y])
+
+
+# Pause screen feature
+def pause():
+    done=True
+    while done:
+        heading("PAUSED",(126, 224, 198),270,180)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type==pygame.KEYDOWN:
+                if event.key==pygame.K_p:
+                    done=False
+                if event.key == pygame.K_q:
+                    pygame.quit()
+                    sys.exit(0)
+                if event.key== pygame.K_h:
+                    welcomescreen()
+        clock=pygame.time.Clock()
+        clock.tick(30)
+
+
 
 #game loop
      # TO GIVE USER THE OPTION TO SELECT TYPE OF SNAKE
@@ -333,6 +364,9 @@ def gameloop(snaketype):
                    
                     if event.key==pygame.K_h:
                         welcomescreen()
+                    
+                    if event.key==pygame.K_p:
+                        pause()
                 
             snakeX=snakeX + velocityX
             snakeY=snakeY + velocityY
@@ -341,9 +375,9 @@ def gameloop(snaketype):
             # Setting the main game window color 
             gameWindow.fill(maincolor)
             gameWindow.blit(mainbg,(0,0))
-            
-            text_screen("Press Q to QUIT...", (16, 146, 163), 0,380)
-            text_screen("Press H to HOME_SCREEN", (219, 187, 149), 340,380)
+            main_screen("Press P to PAUSE...", (16, 146, 163), 190,380)
+            main_screen("Press Q to QUIT...", (16, 146, 163), 0,380)
+            main_screen("Press H to HOME_SCREEN", (219, 187, 149), 400,380)
             
             if count%5 != 0 or count==0:
                 pygame.draw.rect(gameWindow,red,[foodX,foodY,food_sizeX,food_sizeY])
