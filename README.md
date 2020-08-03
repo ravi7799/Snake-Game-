@@ -16,7 +16,8 @@ Player will enjoy playing this game...
 4. Player will get Good Interaction with the CPU.
 5. Sound and visuals are of very good quality.
 6. Player can Pause the game at anytime.
-7. And most importantly you will enoy this game.. :-D
+7. More than Five snakes to choose from.
+8. And most importantly you will enoy this game.. :-D
 
 
 Direction to use and Play:
