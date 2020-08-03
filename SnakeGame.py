@@ -263,7 +263,7 @@ def main_screen(text,color,x,y):
 def pause():
     done=True
     while done:
-        heading("PAUSED",(126, 224, 198),270,180)
+        heading("PAUSED",(126, 224, 198),230,185)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type==pygame.KEYDOWN:
