@@ -47,13 +47,13 @@ pygame.display.update()
 
 # To Print Score on Screen
 def text_screen(text,color,x,y):
-    font=pygame.font.SysFont(text,30)
+    font=pygame.font.SysFont("georgia",20)
     screen_text=font.render(text,True,color)
     gameWindow.blit(screen_text,[x,y])
 
 #For Heading
 def heading(text,color,x,y):
-    font=pygame.font.SysFont(text,45)
+    font=pygame.font.SysFont("verdana",30)
     screen_text=font.render(text,True,color)
     gameWindow.blit(screen_text,[x,y])
 
@@ -254,7 +254,7 @@ def helpscreen():
 
 
 def main_screen(text,color,x,y):
-    font=pygame.font.SysFont(text,23)
+    font=pygame.font.SysFont("segoeuihistoric",20)
     screen_text=font.render(text,True,color)
     gameWindow.blit(screen_text,[x,y])
 
@@ -422,9 +422,9 @@ def gameloop(snaketype):
             # Setting the main game window color 
             gameWindow.fill(maincolor)
             gameWindow.blit(mainbg,(0,0))
-            main_screen("Press P to PAUSE...", (16, 146, 163), 190,380)
-            main_screen("Press Q to QUIT...", (16, 146, 163), 0,380)
-            main_screen("Press H to HOME_SCREEN", (219, 187, 149), 400,380)
+            main_screen("Press P to PAUSE...", (16, 146, 163), 170,370)
+            main_screen("Press Q to QUIT...", (16, 146, 163), 0,370)
+            main_screen("Press H to HOME_SCREEN", (219, 187, 149), 360,370)
             
             if count%5 != 0 or count==0:
                 gameWindow.blit(smallfood,(foodX,foodY))
