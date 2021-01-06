@@ -1,6 +1,6 @@
 # Snake-Game-
 
-This is a game programmed in python programming language.
+This is a game programmed in the python programming language.
 
 Modules used-
   *  pygame
