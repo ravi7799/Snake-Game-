@@ -4,7 +4,7 @@ import sys
 import os
 
 
-x=pygame.init()
+x= pygame.init()
 
 # For adding audio file..
 pygame.mixer.init()
@@ -36,7 +36,7 @@ maincolor=(0, 26, 18)
 # width=600 & height=400
 gameWindow=pygame.display.set_mode((600,400))
 pygame.display.set_caption("SNAKES VIPER")
-game_icon=pygame.image.load('icon\icon.png')
+game_icon=pygame.image.load("icon\\icon2.png")
 pygame.display.set_icon(game_icon)
 pygame.display.update()
 
