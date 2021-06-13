@@ -36,3 +36,10 @@ Direction to use and Play:
  Email - kumarraveet52@gmail.com
  
  instagram : https://www.instagram.com/kumarraveet/
+
+## Screenshot
+<img src="https://github.com/ravi7799/Snake-Game-/blob/master/images/ss1.png">
+
+<img src="https://github.com/ravi7799/Snake-Game-/blob/master/images/ss2.png">
+
+<img src="https://github.com/ravi7799/Snake-Game-/blob/master/images/ss3.png">
